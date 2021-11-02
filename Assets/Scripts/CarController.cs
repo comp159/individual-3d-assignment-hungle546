@@ -31,6 +31,14 @@ public class CarController : MonoBehaviour
     [SerializeField] private Transform rearRightWheelTransform;
     
     private AudioSource acceleration;
+    [SerializeField] private GameObject breaks;
+
+
+    private void Start()
+    {
+        breaks.SetActive(false);
+    }
+
     private void FixedUpdate()
     {
         GetInput();
@@ -46,7 +54,8 @@ public class CarController : MonoBehaviour
         verticalInput = Input.GetAxis(Vertical);
         isBreaking = Input.GetKey(KeyCode.Space);
     }
-
+    
+    
     private void HandleMotor()
     {
         acceleration = GetComponent<AudioSource>();
@@ -55,10 +64,16 @@ public class CarController : MonoBehaviour
         frontLeftWheelCollider.motorTorque = verticalInput * motorForce;
         frontRightWheelCollider.motorTorque = verticalInput * motorForce;
         currentbreakForce = isBreaking ? breakForce : 0f;
+        if (isBreaking)
+        {
+            breaks.SetActive(true);
+            
+            
+        }
         ApplyBreaking();       
     }
 
-    private void ApplyBreaking()
+    public void ApplyBreaking()
     {
         frontRightWheelCollider.brakeTorque = currentbreakForce;
         frontLeftWheelCollider.brakeTorque = currentbreakForce;
@@ -88,5 +103,10 @@ public class CarController : MonoBehaviour
 ;       wheelCollider.GetWorldPose(out pos, out rot);
         wheelTransform.rotation = rot;
         wheelTransform.position = pos;
+    }
+
+    private IEnumerable breakLightCD()
+    {
+        
     }
 }
