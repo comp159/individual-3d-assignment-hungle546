@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
+using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 
 public class CarController : MonoBehaviour
@@ -27,7 +29,8 @@ public class CarController : MonoBehaviour
     [SerializeField] private Transform frontRightWheeTransform;
     [SerializeField] private Transform rearLeftWheelTransform;
     [SerializeField] private Transform rearRightWheelTransform;
-
+    
+    private AudioSource acceleration;
     private void FixedUpdate()
     {
         GetInput();
@@ -46,6 +49,9 @@ public class CarController : MonoBehaviour
 
     private void HandleMotor()
     {
+        acceleration = GetComponent<AudioSource>();
+        acceleration.PlayOneShot(acceleration.clip,0.3f);
+        Debug.Log("sound playing");
         frontLeftWheelCollider.motorTorque = verticalInput * motorForce;
         frontRightWheelCollider.motorTorque = verticalInput * motorForce;
         currentbreakForce = isBreaking ? breakForce : 0f;
