@@ -15,7 +15,7 @@ public class CarController : MonoBehaviour
     private float currentSteerAngle;
     private float currentbreakForce;
     private bool isBreaking;
-
+    [SerializeField] private GameObject car;
     [SerializeField] private float motorForce;
     [SerializeField] private float breakForce;
     [SerializeField] private float maxSteerAngle;
@@ -45,6 +45,7 @@ public class CarController : MonoBehaviour
         HandleMotor();
         HandleSteering();
         UpdateWheels();
+        CarFlip();
     }
 
 
@@ -53,8 +54,17 @@ public class CarController : MonoBehaviour
         horizontalInput = Input.GetAxis(Horizontal);
         verticalInput = Input.GetAxis(Vertical);
         isBreaking = Input.GetKey(KeyCode.Space);
+       
     }
-    
+
+    private void CarFlip()
+    {
+        if (Input.GetKey(KeyCode.F))
+        {
+            Debug.Log("flipping car");
+            car.transform.Rotate(0f,0f,0f);
+        }
+    }
     
     private void HandleMotor()
     {
