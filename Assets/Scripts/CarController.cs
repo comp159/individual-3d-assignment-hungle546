@@ -15,6 +15,7 @@ public class CarController : MonoBehaviour
     private float currentSteerAngle;
     private float currentbreakForce;
     private bool isBreaking;
+
     [SerializeField] private GameObject car;
     [SerializeField] private float motorForce;
     [SerializeField] private float breakForce;
@@ -72,19 +73,15 @@ public class CarController : MonoBehaviour
         acceleration.PlayOneShot(acceleration.clip,0.3f);
         Debug.Log("sound playing");
         frontLeftWheelCollider.motorTorque = verticalInput * motorForce;
+        breaks.SetActive(false);
         frontRightWheelCollider.motorTorque = verticalInput * motorForce;
         currentbreakForce = isBreaking ? breakForce : 0f;
-        if (isBreaking)
-        {
-            breaks.SetActive(true);
-            
-            
-        }
         ApplyBreaking();       
     }
 
     public void ApplyBreaking()
     {
+        breakLightOn();
         frontRightWheelCollider.brakeTorque = currentbreakForce;
         frontLeftWheelCollider.brakeTorque = currentbreakForce;
         rearLeftWheelCollider.brakeTorque = currentbreakForce;
@@ -115,9 +112,22 @@ public class CarController : MonoBehaviour
         wheelTransform.position = pos;
     }
 
-    /*private IEnumerable breakLightCD()
+    private IEnumerable breakLightCD()
     {
-        
+        yield return new WaitForSeconds(5f);
+        Debug.Log("stop break lights");
+        breaks.SetActive(false);
     }
-    */
+
+    private void breakLightOn()
+    {
+        if (isBreaking)
+        {
+            Debug.Log("break light on");
+            breaks.SetActive(true);
+            StartCoroutine("breakLightCD");
+        }
+       
+    }
+    
 }
