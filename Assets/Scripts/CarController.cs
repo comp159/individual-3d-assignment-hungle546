@@ -33,11 +33,12 @@ public class CarController : MonoBehaviour
     
     private AudioSource acceleration;
     [SerializeField] private GameObject breaks;
-
+    public Quaternion initialRotation;
 
     private void Start()
     {
         breaks.SetActive(false);
+        initialRotation = transform.rotation;
     }
 
     private void FixedUpdate()
@@ -63,7 +64,7 @@ public class CarController : MonoBehaviour
         if (Input.GetKey(KeyCode.F))
         {
             Debug.Log("flipping car");
-            car.transform.Rotate(0f,0f,0f);
+            transform.rotation = initialRotation;
         }
     }
     

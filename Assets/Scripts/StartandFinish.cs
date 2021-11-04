@@ -36,5 +36,11 @@ public class StartandFinish : MonoBehaviour
             Debug.Log("car passed over the start line");
             startTimer = true;
         }
+
+        if (other.gameObject.CompareTag("Finish"))
+        {
+            startTimer = false;
+            Debug.Log("car passed over the finish line");
+        }
     }
 }
