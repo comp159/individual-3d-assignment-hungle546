@@ -2,9 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using UnityEditor.IMGUI.Controls;
 using UnityEngine;
-
+//Script for Car Controller. Used youtube video as reference to have the car move. 
+//https://youtu.be/Z4HA8zJhGEk
+// only car mechanics are from video
 public class CarController : MonoBehaviour
 {
     private const string Horizontal = "Horizontal";
@@ -58,8 +59,8 @@ public class CarController : MonoBehaviour
         isBreaking = Input.GetKey(KeyCode.Space);
        
     }
-
-    private void CarFlip()
+    //rotating car once it is flipped
+    private void CarFlip() 
     {
         if (Input.GetKey(KeyCode.F))
         {
@@ -112,14 +113,14 @@ public class CarController : MonoBehaviour
         wheelTransform.rotation = rot;
         wheelTransform.position = pos;
     }
-
+    //controlling the break lights
     private IEnumerable breakLightCD()
     {
         yield return new WaitForSeconds(5f);
         Debug.Log("stop break lights");
         breaks.SetActive(false);
     }
-
+    // setting breaklights on
     private void breakLightOn()
     {
         if (isBreaking)

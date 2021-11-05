@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
+//changing the spedometer
 public class Speedometer : MonoBehaviour
 {
     public Rigidbody target;

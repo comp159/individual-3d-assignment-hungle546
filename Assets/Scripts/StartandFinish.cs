@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+//Script for the start and finish line
+//enabling a timer for the race
 public class StartandFinish : MonoBehaviour
 {
+    
     public float raceTime;
     [SerializeField] private Text rTime;
     private bool startTimer = false;
@@ -27,7 +29,7 @@ public class StartandFinish : MonoBehaviour
         }
     }
     
-
+    //once car passes line then timer will start and when car passes finish timer will stop
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Start"))
